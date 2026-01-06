@@ -127,7 +127,7 @@ function Dashboard() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) {
-        Router.navigateTo('/login');
+        App.Router.navigateTo('/login');
       } else {
         setUser(data.session.user);
       }
