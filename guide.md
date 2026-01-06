@@ -33,3 +33,11 @@ Deploy lên Vercel trên điện thoại
 3.  Vercel sẽ hiện list repo GitHub của bạn → chọn repo my-framework-supabase
 4.  Không cần config gì → nhấn Deploy
 5.  Chờ 30-60 giây → xong! Vercel cho bạn link kiểu: https://MyShop.vercel.app
+
+•  Nếu vẫn 404 → thêm file vercel.json (tạo mới trong repo):
+
+```json
+{
+  "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
+}
+```
