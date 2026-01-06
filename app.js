@@ -48,7 +48,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
+/*
   const signUp = async () => {
     setLoading(true);
     setMessage('');
@@ -57,6 +57,24 @@ function Login() {
     if (error) setMessage('Lỗi: ' + error.message);
     else setMessage('Đăng ký thành công! Kiểm tra email để xác nhận.');
   };
+*/
+
+const signUp = async () => {
+  setLoading(true);
+  setMessage('');
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: 'https://my-framework-supabase.vercel.app'
+    }
+  });
+  setLoading(false);
+  if (error) setMessage('Lỗi: ' + error.message);
+  else setMessage('Đăng ký thành công! Kiểm tra email để xác nhận.');
+};
+
+
 
   const signIn = async () => {
     setLoading(true);
