@@ -32,12 +32,12 @@ function Navbar() {
   };
 
   return h('nav', { style: { background: '#2c3e50', padding: '1rem', color: 'white', textAlign: 'center' } },
-    h(Link, { to: '/', chidren: 'Home' }),
+    h(Link, { to: '/', children: 'Home' }),
     ' | ',
     h(Link, { to: '/about', children: 'About' }),
     ' | ',
     h(Link, { to: '/dashboard', children: 'Dashboard' }),
-    '   ',
+    ' | ',
     user 
       && h('span', null, `Xin chào ${user.email} | `, 
           h('a', { href: '#', onClick: handleLogout, style: { color: 'white' } }, 'Đăng xuất')
