@@ -41,3 +41,44 @@ Deploy lên Vercel trên điện thoại
   "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
 }
 ```
+
+Vấn đề email confirmation link chuyển sang localhost:3000 là lỗi rất phổ biến của Supabase khi deploy production (Vercel/Netlify), và dễ fix cực kỳ — chỉ cần cấu hình đúng trong dashboard Supabase là hết ngay.
+Lý do xảy ra
+•  Supabase mặc định Site URL = http://localhost:3000 (dành cho dev local).
+•  Khi bạn signUp() mà không chỉ định redirectTo, email confirm link sẽ redirect về Site URL này sau khi verify.
+•  Kết quả: Click link → verify thành công trên Supabase server → nhưng redirect về localhost:3000 (không tồn tại trên production → lỗi hoặc trắng trang).
+Cách fix nhanh (làm trên điện thoại, 2 phút)
+1.  Mở trình duyệt → https://supabase.com/dashboard → vào project của bạn.
+2.  Menu bên trái → Authentication → URL Configuration.
+3.  Ở phần Site URL:
+	•  Thay từ http://localhost:3000 thành link Vercel của bạn (ví dụ: https://my-framework-supabase.vercel.app)
+	•  Nhấn Save.
+4.  Ở phần Redirect URLs (Additional redirect URLs):
+	•  Thêm chính xác link Vercel của bạn: https://my-framework-supabase.vercel.app/** (có ** ở cuối để allow tất cả path, hoặc chỉ https://my-framework-supabase.vercel.app)
+	•  Nhấn Save.
+→ Xong! Supabase sẽ dùng URL này cho tất cả email confirm/password reset từ bây giờ.
+Cải tiến tốt hơn (thêm vào code signUp để chắc chắn)
+
+Edit file app.js (trong Login component, hàm signUp):
+
+```js
+const signUp = async () => {
+  setLoading(true);
+  setMessage('');
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: location.origin  // Hoặc hardcode 'https://my-framework-supabase.vercel.app'
+    }
+  });
+  setLoading(false);
+  if (error) setMessage('Lỗi: ' + error.message);
+  else setMessage('Đăng ký thành công! Kiểm tra email để xác nhận.');
+};
+```
+
+•  location.origin tự lấy URL hiện tại (production sẽ là vercel.app).
+•  Commit lại → Vercel redeploy tự động.
+
+
