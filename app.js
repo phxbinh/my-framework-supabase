@@ -19,7 +19,7 @@ function Navbar() {
     h(Link, { to: '/about', children: 'About' }),
     ' | ',
     h(Link, { to: '/dashboard', children: 'Dashboard' }),
-    '   ',
+    ' | ',
     user ? 
       h('span', null, `Xin chào ${user.email} | `, h('a', { href: '#', onClick: () => supabase.auth.signOut() }, 'Đăng xuất')) :
       h(Link, { to: '/login',children: 'Đăng nhập' })
