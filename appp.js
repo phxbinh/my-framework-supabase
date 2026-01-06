@@ -30,7 +30,7 @@ function Navbar() {
     await supabase.auth.signOut();
     // rerender() đã được gọi trong onAuthStateChange
   };
-
+/*
   return h('nav', { style: { background: '#2c3e50', padding: '1rem', color: 'white', textAlign: 'center' } },
     h(Link, { to: '/' }, 'Home'),
     ' | ',
@@ -43,6 +43,21 @@ function Navbar() {
           h('a', { href: '#', onClick: handleLogout, style: { color: 'white' } }, 'Đăng xuất')
         )
       : h(Link, { to: '/login' }, 'Đăng nhập')
+  );
+  */
+
+return h('nav', { style: { background: '#2c3e50', padding: '1rem', color: 'white', textAlign: 'center' } },
+    h(Link, { to: '/', children: 'Home' }),
+    ' | ',
+    h(Link, { to: '/about', children: 'About' }),
+    ' | ',
+    h(Link, { to: '/dashboard', children: 'Dashboard' }),
+    ' | ',
+    user 
+    ? h('span', null, `Xin chào ${user.email} | `, 
+          h('a', { href: '#', onClick: handleLogout, style: { color: 'white' } }, 'Đăng xuất')
+        )
+      : h(Link, { to: '/login', children: 'Đăng nhập'  })
   );
 }
 
