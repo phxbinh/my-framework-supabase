@@ -14,15 +14,15 @@ function Navbar() {
   }, []);
 
   return h('nav', null,
-    h(Link, { to: '/' }, 'Home'),
+    h(Link, { to: '/', children: 'Home' }),
     ' | ',
-    h(Link, { to: '/about' }, 'About'),
+    h(Link, { to: '/about', children: 'About' }),
     ' | ',
-    h(Link, { to: '/dashboard' }, 'Dashboard'),
+    h(Link, { to: '/dashboard', children: 'Dashboard' }),
     '   ',
     user ? 
       h('span', null, `Xin chào ${user.email} | `, h('a', { href: '#', onClick: () => supabase.auth.signOut() }, 'Đăng xuất')) :
-      h(Link, { to: '/login' }, 'Đăng nhập')
+      h(Link, { to: '/login',children: 'Đăng nhập' })
   );
 }
 
