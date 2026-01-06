@@ -39,10 +39,10 @@ function Navbar() {
     h(Link, { to: '/dashboard', children: 'Dashboard' }),
     ' | ',
     user 
-      && h('span', null, `Xin chào ${user.email} | `, 
+    ? h('span', null, `Xin chào ${user.email} | `, 
           h('a', { href: '#', onClick: handleLogout, style: { color: 'white' } }, 'Đăng xuất')
         ),
-      !user && h(Link, { to: '/login', children: 'Đăng nhập'  })
+      : h(Link, { to: '/login', children: 'Đăng nhập'  })
   );
 }
 
