@@ -119,7 +119,7 @@ function Login() {
     } else {
       setMessage('Đăng nhập thành công! Đang chuyển...');
       rerender(); // update navbar ngay
-      Router.navigateTo('/dashboard'); // redirect về dashboard
+      App.Router.navigateTo('/dashboard'); // redirect về dashboard
     }
   };
 
