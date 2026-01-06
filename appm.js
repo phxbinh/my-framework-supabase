@@ -41,7 +41,7 @@ function Navbar() {
     user 
     ? h('span', null, `Xin chào ${user.email} | `, 
           h('a', { href: '#', onClick: handleLogout, style: { color: 'white' } }, 'Đăng xuất')
-        ),
+        )
       : h(Link, { to: '/login', children: 'Đăng nhập'  })
   );
 }
